@@ -38,7 +38,7 @@ border-right: none;
 border-left: none;
 margin-left: 0.5%;
 }
-@media (max-width:760px)
+@media (max-width:1024px)
 {
     #search-btn{
         width:40%;
