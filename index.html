@@ -18,11 +18,11 @@ NEWS API
 		.then(response => response.json())
 		.then(data => {
 		  for(var p=0;p<data.totalResults-1;p++){
-		   var getData=data.articles[p].title.split(" ");
-			 console.log(getData);
-			var userdata = document.getElementById("search-txt").value.split(" ");
+		   var getData=data.articles[p].title.toUpperCase().split(" ");
+			var userdata = document.getElementById("search-txt").value.toUpperCase().split(" ");
 		  console.log(userdata);
 		  var count=0;
+		  var check=0;
 		  for(var i=0;i<userdata.length;i++)
 		  {
 		  	for(var j=0;j<getData.length;j++)
@@ -33,24 +33,26 @@ NEWS API
 		  		}
 		  	}
 		  }
+		  
 		  if(count>=(getData.length)/4)
 		  {
 		  	document.getElementById("pp").innerHTML="We found a match";
 		  	document.getElementById("myspan").innerHTML=data.articles[p].title;
 		  	document.getElementById("ur").href=data.articles[p].url;
 		  	document.getElementById("myimg").src=data.articles[p].urlToImage;
+		  	check=1;
 		  	break;
 		  }
+		  else
+		  {
+		  	document.getElementById("pp").innerHTML="We found no match";
+		  	document.getElementById("myspan").innerHTML="";
+		  	document.getElementById("ur").href="";
+		  	document.getElementById("myimg").src="";
+		  }
 		}
-		if(document.getElementById("pp").innerHTML=="We found a match"){
 
-		}
-		else
-		{
-			document.getElementById("pp").innerHTML="Not found";
-		}
-
-		  // Prints result from `response.json()` in getRequest
+		
 		})
 		.catch(error => console.error(error))
 		
