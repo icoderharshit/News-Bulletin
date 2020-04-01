@@ -8,6 +8,37 @@ NEWS API
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
+
+<script type="text/javascript">
+	function my(){
+	let apiArray=['Corona','Covid19','Covid 19','India','Deaths']
+	let str=document.getElementById("search-txt").value;
+	let userArray=str.split(" ");
+	let strs="";
+	let count=0;
+	for(let i=0;i<userArray.length;i++)
+	{
+		
+		for(let j=0;j<apiArray.length;j++)
+		{
+		if(userArray[i].includes(apiArray[j])){
+			
+			count++;
+		}
+	}
+	}
+	strs=count;
+	if(count>=(userArray.length/2))
+	{
+		document.getElementById("pp").innerHTML="Its true";
+	}
+	else
+	{
+		document.getElementById("pp").innerHTML="Not proven true";
+	}
+}
+</script>
 <body style="margin-top: 30px;">
     <header style="text-align: center;">
         <h1>Fake News Detector</h1>
@@ -16,13 +47,13 @@ NEWS API
 </header>
     <div class="search-bar">
         <form id="form" action="#" >
-            <input type="search" id="search-txt" placeholder="Enter your queries here" required tabindex="1">
-       <button style="font-size:24px" id="search-btn" tabindex="1">Search <i class="fa fa-search"></i></button>
+            <input type="search" id="search-txt" placeholder="Enter your queries here" required tabindex="1" >
+       <button style="font-size:24px" id="search-btn" tabindex="1" onclick="my()">Search <i class="fa fa-search"></i></button>
     </form>
     </div>
     <div id="text-area">
-        <p tabindex="0">
-           <strong tabindex="1">Results will be displayed here</strong> <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nunc massa, gravida non sollicitudin sit amet, egestas eget elit. Maecenas egestas sagittis tincidunt. Cras at aliquam est. Maecenas sed velit nec metus gravida dignissim vitae quis odio. Morbi pharetra, risus in blandit sodales, arcu turpis fermentum ipsum, id mattis nulla libero sed orci. Integer feugiat bibendum nulla, sed imperdiet ex iaculis nec. Integer nec ultricies purus. Fusce quis ipsum varius, auctor neque id, viverra nibh. Proin aliquam eu velit eget semper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+        <p tabindex="0" >
+           <strong tabindex="1" id="pp">Results will be displayed here</strong> <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nunc massa, gravida non sollicitudin sit amet, egestas eget elit. Maecenas egestas sagittis tincidunt. Cras at aliquam est. Maecenas sed velit nec metus gravida dignissim vitae quis odio. Morbi pharetra, risus in blandit sodales, arcu turpis fermentum ipsum, id mattis nulla libero sed orci. Integer feugiat bibendum nulla, sed imperdiet ex iaculis nec. Integer nec ultricies purus. Fusce quis ipsum varius, auctor neque id, viverra nibh. Proin aliquam eu velit eget semper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
         </p>
     </div>
     <footer>
