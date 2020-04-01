@@ -11,33 +11,56 @@ NEWS API
 
 
 <script type="text/javascript">
+
 	function my(){
-	let apiArray=['Corona','Covid19','Covid 19','India','Deaths']
-	let str=document.getElementById("search-txt").value;
-	let userArray=str.split(" ");
-	let strs="";
-	let count=0;
-	for(let i=0;i<userArray.length;i++)
-	{
 		
-		for(let j=0;j<apiArray.length;j++)
-		{
-		if(userArray[i].includes(apiArray[j])){
-			
-			count++;
+	fetch('http://newsapi.org/v2/top-headlines?country=in&apiKey=ef1183be24ab479eb86043c5069f1371')
+		.then(response => response.json())
+		.then(data => {
+		  for(var p=0;p<data.totalResults-1;p++){
+		   var getData=data.articles[p].title.split(" ");
+			 console.log(getData);
+			var userdata = document.getElementById("search-txt").value.split(" ");
+		  console.log(userdata);
+		  var count=0;
+		  for(var i=0;i<userdata.length;i++)
+		  {
+		  	for(var j=0;j<getData.length;j++)
+		  	{
+		  		if(userdata[i]==getData[j] )
+		  		{
+		  			count++;
+		  		}
+		  	}
+		  }
+		  if(count>=(getData.length)/4)
+		  {
+		  	document.getElementById("pp").innerHTML="We found a match";
+		  	document.getElementById("myspan").innerHTML=data.articles[p].title;
+		  	document.getElementById("ur").href=data.articles[p].url;
+		  	document.getElementById("myimg").src=data.articles[p].urlToImage;
+		  	break;
+		  }
 		}
-	}
-	}
-	strs=count;
-	if(count>=(userArray.length/2))
-	{
-		document.getElementById("pp").innerHTML="Its true";
-	}
-	else
-	{
-		document.getElementById("pp").innerHTML="Not proven true";
-	}
-}
+		if(document.getElementById("pp").innerHTML=="We found a match"){
+
+		}
+		else
+		{
+			document.getElementById("pp").innerHTML="Not found";
+		}
+
+		  // Prints result from `response.json()` in getRequest
+		})
+		.catch(error => console.error(error))
+		
+		}
+
+	
+
+	
+
+
 </script>
 <body style="margin-top: 30px;">
     <header style="text-align: center;">
@@ -48,12 +71,14 @@ NEWS API
     <div class="search-bar">
         <form id="form" action="#" >
             <input type="search" id="search-txt" placeholder="Enter your queries here" required tabindex="1" >
-       <button style="font-size:24px" id="search-btn" tabindex="1" onclick="my()">Search <i class="fa fa-search"></i></button>
+       <button style="font-size:24px" id="search-btn"  onclick="my()">Search <i class="fa fa-search"></i></button>
     </form>
     </div>
     <div id="text-area">
         <p tabindex="0" >
-           <strong tabindex="1" id="pp">Results will be displayed here</strong> <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nunc massa, gravida non sollicitudin sit amet, egestas eget elit. Maecenas egestas sagittis tincidunt. Cras at aliquam est. Maecenas sed velit nec metus gravida dignissim vitae quis odio. Morbi pharetra, risus in blandit sodales, arcu turpis fermentum ipsum, id mattis nulla libero sed orci. Integer feugiat bibendum nulla, sed imperdiet ex iaculis nec. Integer nec ultricies purus. Fusce quis ipsum varius, auctor neque id, viverra nibh. Proin aliquam eu velit eget semper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+           <strong tabindex="1" id="pp">Results will be displayed here</strong> <br><span id="myspan">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nunc massa, gravida non sollicitudin sit amet, egestas eget elit. Maecenas egestas sagittis tincidunt. Cras at aliquam est. Maecenas sed velit nec metus gravida dignissim vitae quis odio. Morbi pharetra, risus in blandit sodales, arcu turpis fermentum ipsum, id mattis nulla libero sed orci. Integer feugiat bibendum nulla, sed imperdiet ex iaculis nec. Integer nec ultricies purus. Fusce quis ipsum varius, auctor neque id, viverra nibh. Proin aliquam eu velit eget semper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</span>
+           <p>URl-<a id="ur" href="">Click here</a></p>
+           <img src="" style="height: 200px;width: 200px" id="myimg" alt="Your image will come here">
         </p>
     </div>
     <footer>
