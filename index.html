@@ -14,7 +14,7 @@ NEWS API
 
 	function my(){
 		
-	fetch('http://newsapi.org/v2/top-headlines?country=in&apiKey=ef1183be24ab479eb86043c5069f1371')
+	fetch('https://newsapi.org/v2/top-headlines?country=in&apiKey=ef1183be24ab479eb86043c5069f1371')
 		.then(response => response.json())
 		.then(data => {
 		  for(var p=0;p<data.totalResults-1;p++){
