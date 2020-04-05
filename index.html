@@ -10,6 +10,43 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta charset="UTF-8">
 	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+	 <!-- for boootstrap-->
+	 <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<style>
+#chartdiv2 {
+  width: 100%;
+  height: 500px;
+}
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+
+</style>
+
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+
+
+
+
 	</head>
 
 
@@ -34,7 +71,7 @@
 						}
 					}
 
-					if (count >= (getData.length) / 4) {
+					if (count >= (getData.length) / 6) {
 						document.getElementById("pp").innerHTML = "We found a match";
 						document.getElementById("myspan").innerHTML = data.articles[p].title;
 						document.getElementById("ur").href = data.articles[p].url;
@@ -59,16 +96,151 @@
 
 
 </script>
+<!--country script India -->
+<script type="text/javascript">
+	fetch('https://covid19.mathdro.id/api/countries/India')
+	.then(response =>response.json())
+	.then(indiaData =>{
+		console.log(indiaData.confirmed.value);
+		
+
+
+
+			am4core.ready(function() {
+
+			// Themes begin
+			am4core.useTheme(am4themes_animated);
+			// Themes end
+
+			// Create chart instance
+			var chart = am4core.create("chartdiv", am4charts.PieChart);
+
+			// Add data
+			chart.data = [ {
+			  "country": "Deaths",
+			  "litres": indiaData.deaths.value
+			}, {
+			  "country": "Active Cases",
+			  "litres": indiaData.confirmed.value-indiaData.recovered.value
+			}, {
+			  "country": "Recovered",
+			  "litres": indiaData.recovered.value
+			},  ];
+
+			// Add and configure Series
+			var pieSeries = chart.series.push(new am4charts.PieSeries());
+			pieSeries.dataFields.value = "litres";
+			pieSeries.dataFields.category = "country";
+			pieSeries.slices.template.stroke = am4core.color("#fff");
+			pieSeries.slices.template.strokeWidth = 2;
+			pieSeries.slices.template.strokeOpacity = 1;
+
+			// This creates initial animation
+			pieSeries.hiddenState.properties.opacity = 1;
+			pieSeries.hiddenState.properties.endAngle = -90;
+			pieSeries.hiddenState.properties.startAngle = -90;
+
+			});
+
+
+
+
+	})
+
+
+	fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=ef1183be24ab479eb86043c5069f1371')
+			.then(response => response.json())
+			.then(data => {
+				
+						for(var i=1;i<4;i++){
+							console.log(data.articles[i-1].title);
+						document.getElementById(`card${i}-imagee`).src = data.articles[i-1].urlToImage;
+						document.getElementById(`card-${i}-headinge`).innerHTML = data.articles[i-1].title;
+						document.getElementById(`card-${i}-authore`).innerHTML = data.articles[i-1].author;
+						
+					}
+				}
+				)
+
+
+			// second country
+			fetch('https://covid19.mathdro.id/api/countries/USA')
+	.then(response =>response.json())
+	.then(usdata =>{
+		console.log(usdata.confirmed.value);
+		
+
+
+
+			am4core.ready(function() {
+
+			// Themes begin
+			am4core.useTheme(am4themes_animated);
+			// Themes end
+
+			// Create chart instance
+			var chart = am4core.create("chartdiv2", am4charts.PieChart);
+
+			// Add data
+			chart.data = [ {
+			  "country": "Deaths",
+			  "litres": usdata.deaths.value
+			}, {
+			  "country": "Active Cases",
+			  "litres": usdata.confirmed.value-usdata.recovered.value
+			}, {
+			  "country": "Recovered",
+			  "litres": usdata.recovered.value
+			},  ];
+
+			// Add and configure Series
+			var pieSeries = chart.series.push(new am4charts.PieSeries());
+			pieSeries.dataFields.value = "litres";
+			pieSeries.dataFields.category = "country";
+			pieSeries.slices.template.stroke = am4core.color("#fff");
+			pieSeries.slices.template.strokeWidth = 2;
+			pieSeries.slices.template.strokeOpacity = 1;
+
+			// This creates initial animation
+			pieSeries.hiddenState.properties.opacity = 1;
+			pieSeries.hiddenState.properties.endAngle = -90;
+			pieSeries.hiddenState.properties.startAngle = -90;
+
+			});
+
+
+
+
+	})
+
+
+	fetch('https://newsapi.org/v2/top-headlines?country=in&apiKey=ef1183be24ab479eb86043c5069f1371')
+			.then(response => response.json())
+			.then(data => {
+				
+						for(var i=1;i<4;i++){
+							console.log(data.articles[i-1].title);
+						document.getElementById(`card${i}-image`).src = data.articles[i-1].urlToImage;
+						document.getElementById(`card-${i}-heading`).innerHTML = data.articles[i-1].title;
+						document.getElementById(`card-${i}-author`).innerHTML = data.articles[i-1].author;
+						
+					}
+				}
+				)
+
+</script>
+
+
 
 
 
 <body style="margin-top: 30px;">
 	<header style="text-align: center;">
 		<h1>News Bulletin</h1>
-
+		<br><br>
 		<h3>You type, We Check !</h3>
 	</header>
-	<div class="search-bar">
+	<div class="container search-bar">
 		<form id="form" action="#">
 			<input type="search" id="search-txt" placeholder="Enter your queries here" required tabindex="1">
 			<button style="font-size:24px" id="search-btn" onclick="my()">Search <i class="fa fa-search"></i></button>
@@ -83,6 +255,114 @@
 			<img src="/News-Bulletin/assets/search.png" style="height: 200px;width: 200px" id="myimg" alt="Your image will come here">
 		</p>
 	</div>
+	<hr>
+	<!-- country Section-->
+	<div class="container" style="margin-top: 2%">
+		<center>
+			<h1 style="font-size: 4rem">India</h1>
+			<br>
+			<br>
+			<div id="chartdiv2"></div>
+			<br>
+			<div>
+				<h1>News Headlines</h1>
+				<br>
+				<br>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="card">
+						  <img src="" alt="News" id="card1-image" style="width:100%">
+						  <div class="container">
+						  	<br>
+						    <h4 id="card-1-heading"></h4> 
+						    <p>Author - <span id="card-1-author">Author name</span></p> 
+						    <br>
+						    
+
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card">
+						  <img src="" alt="News" id="card2-image" style="width:100%">
+						  <div class="container">
+						    <h4 id="card-2-heading"></h4> 
+						    <p>Author - <span id="card-2-author">Author name</span></p> 
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card">
+						  <img src="" alt="News" id="card3-image" style="width:100%">
+						  <div class="container">
+						    <h4 id="card-3-heading"></h4> 
+						    <p>Author - <span id="card-3-author">Author name</span></p> 
+						  </div>
+						</div>
+					</div>
+					
+				</div>
+				<br>
+				
+			</div>
+		</center>
+
+		<br>
+		<br>
+		<center>
+			<h1 style="font-size: 4rem">U.S.A</h1>
+			<br>
+			<br>
+			<div id="chartdiv"></div>
+			<br>
+			<div>
+				<h1>News Headlines</h1>
+				<br>
+				<br>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="card">
+						  <img src="" alt="Image Not Available" id="card1-imagee" style="width:100%">
+						  <div class="container">
+						  	<br>
+						    <h4 id="card-1-headinge"></h4> 
+						    <p>Author - <span id="card-1-authore">Author name</span></p> 
+						    <br>
+						    
+
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card">
+						  <img src="" alt="News" id="card2-imagee" style="width:100%">
+						  <div class="container">
+						    <h4 id="card-2-headinge"></h4> 
+						    <p>Author - <span id="card-2-authore">Author name</span></p> 
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card">
+						  <img src="" alt="News" id="card3-imagee" style="width:100%">
+						  <div class="container">
+						    <h4 id="card-3-headinge"></h4> 
+						    <p>Author - <span id="card-3-authore">Author name</span></p> 
+						  </div>
+						</div>
+					</div>
+					
+				</div>
+				<br>
+				
+			</div>
+		</center>
+		
+
+	</div>
+	<!--country section ends-->
+
+
 	<div class="content" style="margin-top: 25px;">
 		<h1 style="font-family: 'Lato', sans-serif; font-weight: 700; font-style: normal; color: #61080f; font-size:
 			32px;">FAQs</h1>
