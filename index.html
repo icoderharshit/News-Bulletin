@@ -27,12 +27,18 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+
+<script src="assets/script.js"></script>
 <style>
 #chartdiv2 {
   width: 100%;
   height: 500px;
 }
 #chartdiv {
+  width: 100%;
+  height: 500px;
+}
+#chartdiv3 {
   width: 100%;
   height: 500px;
 }
@@ -53,41 +59,23 @@
 <script type="text/javascript">
 
 	function my() {
+	
+		var userdata1 ="https://newsapi.org/v2/everything?q="+document.getElementById("search-txt").value.toLowerCase()+"&apiKey=ef1183be24ab479eb86043c5069f1371";
+					console.log(userdata1);
 
-		fetch('https://newsapi.org/v2/top-headlines?country=in&apiKey=ef1183be24ab479eb86043c5069f1371')
+		fetch(userdata1)
 			.then(response => response.json())
 			.then(data => {
-				for (var p = 0; p < data.totalResults - 1; p++) {
-					var getData = data.articles[p].title.toUpperCase().split(" ");
-					var userdata = document.getElementById("search-txt").value.toUpperCase().split(" ");
-					console.log(userdata);
-					var count = 0;
-					var check = 0;
-					for (var i = 0; i < userdata.length; i++) {
-						for (var j = 0; j < getData.length; j++) {
-							if (userdata[i] == getData[j]) {
-								count++;
-							}
-						}
-					}
-
-					if (count >= (getData.length) / 6) {
-						document.getElementById("pp").innerHTML = "We found a match";
-						document.getElementById("myspan").innerHTML = data.articles[p].title;
-						document.getElementById("ur").href = data.articles[p].url;
-						document.getElementById("myimg").src = data.articles[p].urlToImage;
-						check = 1;
-						break;
-					}
-					else {
-						document.getElementById("pp").innerHTML = "We found no match";
-						document.getElementById("myspan").innerHTML = "";
-						document.getElementById("ur").href = "";
-						// document.getElementById("myimg").src = "";
-						document.getElementById("myimg").src = "/News-Bulletin/assets/notfound.svg";
-					}
-				}
-
+				document.getElementById("myspan");
+				var ul=document.getElementById("myspan");
+				for(var i=1;i<10;i++){
+				var l=document.createElement("li");
+				l.appendChild(document.createTextNode(data.articles[i].title));
+				l.appendChild(document.createElement("br"));
+				l.appendChild(document.createTextNode("Author -"+data.articles[i].author));
+				ul.appendChild(l);
+				
+			}
 
 			})
 			.catch(error => console.error(error))
@@ -96,139 +84,7 @@
 
 
 </script>
-<!--country script India -->
-<script type="text/javascript">
-	fetch('https://covid19.mathdro.id/api/countries/India')
-	.then(response =>response.json())
-	.then(indiaData =>{
-		console.log(indiaData.confirmed.value);
-		
 
-
-
-			am4core.ready(function() {
-
-			// Themes begin
-			am4core.useTheme(am4themes_animated);
-			// Themes end
-
-			// Create chart instance
-			var chart = am4core.create("chartdiv", am4charts.PieChart);
-
-			// Add data
-			chart.data = [ {
-			  "country": "Deaths",
-			  "litres": indiaData.deaths.value
-			}, {
-			  "country": "Active Cases",
-			  "litres": indiaData.confirmed.value-indiaData.recovered.value
-			}, {
-			  "country": "Recovered",
-			  "litres": indiaData.recovered.value
-			},  ];
-
-			// Add and configure Series
-			var pieSeries = chart.series.push(new am4charts.PieSeries());
-			pieSeries.dataFields.value = "litres";
-			pieSeries.dataFields.category = "country";
-			pieSeries.slices.template.stroke = am4core.color("#fff");
-			pieSeries.slices.template.strokeWidth = 2;
-			pieSeries.slices.template.strokeOpacity = 1;
-
-			// This creates initial animation
-			pieSeries.hiddenState.properties.opacity = 1;
-			pieSeries.hiddenState.properties.endAngle = -90;
-			pieSeries.hiddenState.properties.startAngle = -90;
-
-			});
-
-
-
-
-	})
-
-
-	fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=ef1183be24ab479eb86043c5069f1371')
-			.then(response => response.json())
-			.then(data => {
-				
-						for(var i=1;i<4;i++){
-							console.log(data.articles[i-1].title);
-						document.getElementById(`card${i}-imagee`).src = data.articles[i].urlToImage;
-						document.getElementById(`card-${i}-headinge`).innerHTML = data.articles[i].title;
-						document.getElementById(`card-${i}-authore`).innerHTML = data.articles[i].author;
-						
-					}
-				}
-				)
-
-
-			// second country
-			fetch('https://covid19.mathdro.id/api/countries/USA')
-	.then(response =>response.json())
-	.then(usdata =>{
-		console.log(usdata.confirmed.value);
-		
-
-
-
-			am4core.ready(function() {
-
-			// Themes begin
-			am4core.useTheme(am4themes_animated);
-			// Themes end
-
-			// Create chart instance
-			var chart1 = am4core.create("chartdiv2", am4charts.PieChart);
-
-			// Add data
-			chart1.data = [ {
-			  "country": "Deaths",
-			  "litres": usdata.deaths.value
-			}, {
-			  "country": "Active Cases",
-			  "litres": usdata.confirmed.value-usdata.recovered.value
-			}, {
-			  "country": "Recovered",
-			  "litres": usdata.recovered.value
-			},  ];
-
-			// Add and configure Series
-			var pieSeries1 = chart1.series.push(new am4charts.PieSeries());
-			pieSeries1.dataFields.value = "litres";
-			pieSeries1.dataFields.category = "country";
-			pieSeries1.slices.template.stroke = am4core.color("#fff");
-			pieSeries1.slices.template.strokeWidth = 2;
-			pieSeries1.slices.template.strokeOpacity = 1;
-
-			// This creates initial animation
-			pieSeries1.hiddenState.properties.opacity = 1;
-			pieSeries1.hiddenState.properties.endAngle = -90;
-			pieSeries1.hiddenState.properties.startAngle = -90;
-
-			});
-
-
-
-
-	})
-
-
-	fetch('https://newsapi.org/v2/top-headlines?country=in&apiKey=ef1183be24ab479eb86043c5069f1371')
-			.then(response => response.json())
-			.then(data => {
-				
-						for(var i=1;i<4;i++){
-							console.log(data.articles[i-1].title);
-						document.getElementById(`card${i}-image`).src = data.articles[i-1].urlToImage;
-						document.getElementById(`card-${i}-heading`).innerHTML = data.articles[i-1].title;
-						document.getElementById(`card-${i}-author`).innerHTML = data.articles[i-1].author;
-						
-					}
-				}
-				)
-
-</script>
 
 
 
@@ -249,8 +105,7 @@
 	</div>
 	<div id="text-area">
 		<p tabindex="0">
-			<strong tabindex="1" id="pp">Results will be displayed here</strong> <br><span id="myspan">Reference
-				Text...</span>
+			<strong tabindex="1" id="pp">Results will be displayed here</strong> <br><ul id="myspan"></ul>
 			<p>URl-<a id="ur" href="">Click here</a></p>
 			<img src="/News-Bulletin/assets/search.png" style="height: 200px;width: 200px" id="myimg" alt="Your image will come here">
 		</p>
@@ -357,7 +212,56 @@
 				
 			</div>
 		</center>
-		
+		<br>
+		<br>
+		<center>
+			<h1 style="font-size: 4rem">Italy</h1>
+			<br>
+			<br>
+			<div id="chartdiv3"></div>
+			<br>
+			<div>
+				<h1>News Headlines</h1>
+				<br>
+				<br>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="card">
+						  <img src="" alt="Image Not Available" id="card1-imagei" style="width:100%">
+						  <div class="container">
+						  	<br>
+						    <h4 id="card-1-headingi"></h4> 
+						    <p>Author - <span id="card-1-authori">Author name</span></p> 
+						    <br>
+						    
+
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card">
+						  <img src="" alt="News" id="card2-imagei" style="width:100%">
+						  <div class="container">
+						    <h4 id="card-2-headingi"></h4> 
+						    <p>Author - <span id="card-2-authori">Author name</span></p> 
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card">
+						  <img src="" alt="News" id="card3-imagei" style="width:100%">
+						  <div class="container">
+						    <h4 id="card-3-headingi"></h4> 
+						    <p>Author - <span id="card-3-authori">Author name</span></p> 
+						  </div>
+						</div>
+					</div>
+					
+				</div>
+				<br>
+				
+			</div>
+		</center>
 
 	</div>
 	<!--country section ends-->
