@@ -1,92 +1,148 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>
-NEWS API
-    </title>
-<link rel="stylesheet" href="css/style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width",initial-scale=1.0" />
-	</head>
+	<title>
+		NEWS API
+	</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
 
 <script type="text/javascript">
 
-	function my(){
-		
-	fetch('https://newsapi.org/v2/top-headlines?country=in&apiKey=ef1183be24ab479eb86043c5069f1371')
-		.then(response => response.json())
-		.then(data => {
-		  for(var p=0;p<data.totalResults-1;p++){
-		   var getData=data.articles[p].title.toUpperCase().split(" ");
-			var userdata = document.getElementById("search-txt").value.toUpperCase().split(" ");
-		  console.log(userdata);
-		  var count=0;
-		  var check=0;
-		  for(var i=0;i<userdata.length;i++)
-		  {
-		  	for(var j=0;j<getData.length;j++)
-		  	{
-		  		if(userdata[i]==getData[j] )
-		  		{
-		  			count++;
-		  		}
-		  	}
-		  }
-		  
-		  if(count>=(getData.length)/4)
-		  {
-		  	document.getElementById("pp").innerHTML="We found a match";
-		  	document.getElementById("myspan").innerHTML=data.articles[p].title;
-		  	document.getElementById("ur").href=data.articles[p].url;
-		  	document.getElementById("myimg").src=data.articles[p].urlToImage;
-		  	check=1;
-		  	break;
-		  }
-		  else
-		  {
-		  	document.getElementById("pp").innerHTML="We found no match";
-		  	document.getElementById("myspan").innerHTML="";
-		  	document.getElementById("ur").href="";
-		  	document.getElementById("myimg").src="";
-		  }
-		}
+	function my() {
 
-		
-		})
-		.catch(error => console.error(error))
-		
-		}
+		fetch('https://newsapi.org/v2/top-headlines?country=in&apiKey=ef1183be24ab479eb86043c5069f1371')
+			.then(response => response.json())
+			.then(data => {
+				for (var p = 0; p < data.totalResults - 1; p++) {
+					var getData = data.articles[p].title.toUpperCase().split(" ");
+					var userdata = document.getElementById("search-txt").value.toUpperCase().split(" ");
+					console.log(userdata);
+					var count = 0;
+					var check = 0;
+					for (var i = 0; i < userdata.length; i++) {
+						for (var j = 0; j < getData.length; j++) {
+							if (userdata[i] == getData[j]) {
+								count++;
+							}
+						}
+					}
 
-	
+					if (count >= (getData.length) / 4) {
+						document.getElementById("pp").innerHTML = "We found a match";
+						document.getElementById("myspan").innerHTML = data.articles[p].title;
+						document.getElementById("ur").href = data.articles[p].url;
+						document.getElementById("myimg").src = data.articles[p].urlToImage;
+						check = 1;
+						break;
+					}
+					else {
+						document.getElementById("pp").innerHTML = "We found no match";
+						document.getElementById("myspan").innerHTML = "";
+						document.getElementById("ur").href = "";
+						// document.getElementById("myimg").src = "";
+						document.getElementById("myimg").src = "/assets/notfound.svg";
+					}
+				}
 
-	
+
+			})
+			.catch(error => console.error(error))
+
+	}
 
 
 </script>
+
+
+
 <body style="margin-top: 30px;">
-    <header style="text-align: center;">
-        <h1>Fake News Detector</h1>
- 
-    <h3>You type, We Check !</h3>
-</header>
-    <div class="search-bar">
-        <form id="form" action="#" >
-            <input type="search" id="search-txt" placeholder="Enter your queries here" required tabindex="1" >
-       <button style="font-size:24px" id="search-btn"  onclick="my()">Search <i class="fa fa-search"></i></button>
-    </form>
-    </div>
-    <div id="text-area">
-        <p tabindex="0" >
-           <strong tabindex="1" id="pp">Results will be displayed here</strong> <br><span id="myspan">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nunc massa, gravida non sollicitudin sit amet, egestas eget elit. Maecenas egestas sagittis tincidunt. Cras at aliquam est. Maecenas sed velit nec metus gravida dignissim vitae quis odio. Morbi pharetra, risus in blandit sodales, arcu turpis fermentum ipsum, id mattis nulla libero sed orci. Integer feugiat bibendum nulla, sed imperdiet ex iaculis nec. Integer nec ultricies purus. Fusce quis ipsum varius, auctor neque id, viverra nibh. Proin aliquam eu velit eget semper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</span>
-           <p>URl-<a id="ur" href="">Click here</a></p>
-           <img src="" style="height: 200px;width: 200px" id="myimg" alt="Your image will come here">
-        </p>
-    </div>
-    <footer>
-        <hr>
-    </footer>
+	<header style="text-align: center;">
+		<h1>Fake News Detector</h1>
+
+		<h3>You type, We Check !</h3>
+	</header>
+	<div class="search-bar">
+		<form id="form" action="#">
+			<input type="search" id="search-txt" placeholder="Enter your queries here" required tabindex="1">
+			<button style="font-size:24px" id="search-btn" onclick="my()">Search <i class="fa fa-search"></i></button>
+		</form>
+	</div>
+	</div>
+	<div id="text-area">
+		<p tabindex="0">
+			<strong tabindex="1" id="pp">Results will be displayed here</strong> <br><span id="myspan">Reference
+				Text...</span>
+			<p>URl-<a id="ur" href="">Click here</a></p>
+			<img src="/assets/search.png" style="height: 200px;width: 200px" id="myimg" alt="Your image will come here">
+		</p>
+	</div>
+	<div class="content" style="margin-top: 25px;">
+		<h1 style="font-family: 'Lato', sans-serif; font-weight: 700; font-style: normal; color: #61080f; font-size:
+			32px;">FAQs</h1>
+		<h3>Most Commonly Asked !</h3>
+		<div>
+			<input type="checkbox" id="question1" name="q" class="questions">
+			<div class="plus">+</div>
+			<label for="question1" class="question">
+				Question 1
+			</label>
+			<div class="answers">
+				<p>Answer 1 </p>
+
+			</div>
+		</div>
+		<div>
+			<input type="checkbox" id="question2" name="q" class="questions">
+			<div class="plus">+</div>
+			<label for="question2" class="question">
+				Question 2
+			</label>
+			<div class="answers">
+				<p>Answer 2 </p>
+
+			</div>
+		</div>
+		<div>
+			<input type="checkbox" id="question3" name="q" class="questions">
+			<div class="plus">+</div>
+			<label for="question3" class="question">
+				Question 3
+			</label>
+			<div class="answers">
+				<p>Answer 3</p>
+
+			</div>
+		</div>
+		<div>
+			<input type="checkbox" id="question4" name="q" class="questions">
+			<div class="plus">+</div>
+			<label for="question4" class="question">
+				Question 4
+			</label>
+			<div class="answers">
+				<p>Answer 4 </p>
+
+			</div>
+		</div>
+		<div>
+			<input type="checkbox" id="question5" name="q" class="questions">
+			<div class="plus">+</div>
+			<label for="question5" class="question">
+				Question 5
+			</label>
+			<div class="answers">
+				<p>Answer 5</p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<hr>
+	</footer>
 </body>
+
 </html>
