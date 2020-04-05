@@ -154,9 +154,9 @@
 				
 						for(var i=1;i<4;i++){
 							console.log(data.articles[i-1].title);
-						document.getElementById(`card${i}-imagee`).src = data.articles[i-1].urlToImage;
-						document.getElementById(`card-${i}-headinge`).innerHTML = data.articles[i-1].title;
-						document.getElementById(`card-${i}-authore`).innerHTML = data.articles[i-1].author;
+						document.getElementById(`card${i}-imagee`).src = data.articles[i].urlToImage;
+						document.getElementById(`card-${i}-headinge`).innerHTML = data.articles[i].title;
+						document.getElementById(`card-${i}-authore`).innerHTML = data.articles[i].author;
 						
 					}
 				}
@@ -179,10 +179,10 @@
 			// Themes end
 
 			// Create chart instance
-			var chart = am4core.create("chartdiv2", am4charts.PieChart);
+			var chart1 = am4core.create("chartdiv2", am4charts.PieChart);
 
 			// Add data
-			chart.data = [ {
+			chart1.data = [ {
 			  "country": "Deaths",
 			  "litres": usdata.deaths.value
 			}, {
@@ -194,17 +194,17 @@
 			},  ];
 
 			// Add and configure Series
-			var pieSeries = chart.series.push(new am4charts.PieSeries());
-			pieSeries.dataFields.value = "litres";
-			pieSeries.dataFields.category = "country";
-			pieSeries.slices.template.stroke = am4core.color("#fff");
-			pieSeries.slices.template.strokeWidth = 2;
-			pieSeries.slices.template.strokeOpacity = 1;
+			var pieSeries1 = chart1.series.push(new am4charts.PieSeries());
+			pieSeries1.dataFields.value = "litres";
+			pieSeries1.dataFields.category = "country";
+			pieSeries1.slices.template.stroke = am4core.color("#fff");
+			pieSeries1.slices.template.strokeWidth = 2;
+			pieSeries1.slices.template.strokeOpacity = 1;
 
 			// This creates initial animation
-			pieSeries.hiddenState.properties.opacity = 1;
-			pieSeries.hiddenState.properties.endAngle = -90;
-			pieSeries.hiddenState.properties.startAngle = -90;
+			pieSeries1.hiddenState.properties.opacity = 1;
+			pieSeries1.hiddenState.properties.endAngle = -90;
+			pieSeries1.hiddenState.properties.startAngle = -90;
 
 			});
 
@@ -262,7 +262,7 @@
 			<h1 style="font-size: 4rem">India</h1>
 			<br>
 			<br>
-			<div id="chartdiv2"></div>
+			<div id="chartdiv"></div>
 			<br>
 			<div>
 				<h1>News Headlines</h1>
@@ -313,7 +313,7 @@
 			<h1 style="font-size: 4rem">U.S.A</h1>
 			<br>
 			<br>
-			<div id="chartdiv"></div>
+			<div id="chartdiv2"></div>
 			<br>
 			<div>
 				<h1>News Headlines</h1>
