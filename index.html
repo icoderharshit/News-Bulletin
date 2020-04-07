@@ -57,25 +57,38 @@
 
 
 <script type="text/javascript">
+	function data()
+	{
 
-	function my() {
-	
 		var userdata1 ="https://newsapi.org/v2/everything?q="+document.getElementById("search-txt").value.toLowerCase()+"&apiKey=ef1183be24ab479eb86043c5069f1371";
 					console.log(userdata1);
+					my(userdata1)
+	}
 
-		fetch(userdata1)
+	function my(userdata1) {
+	
+		
+
+		fetch(userdata1) 
 			.then(response => response.json())
 			.then(data => {
 				document.getElementById("myspan");
 				var ul=document.getElementById("myspan");
+				var lo=document.createElement("ul");
 				for(var i=1;i<10;i++){
 				var l=document.createElement("li");
 				l.appendChild(document.createTextNode(data.articles[i].title));
 				l.appendChild(document.createElement("br"));
 				l.appendChild(document.createTextNode("Author -"+data.articles[i].author));
-				ul.appendChild(l);
+				l.appendChild(document.createElement("br"));
+				lq=document.createElement("a");
+				lq.appendChild(document.createTextNode("Read more - "));
+				lq.href=data.articles[i].url;
+				l.appendChild(lq);
+				lo.appendChild(l);
 				
 			}
+			$(ul).html(lo);
 
 			})
 			.catch(error => console.error(error))
@@ -99,13 +112,15 @@
 	<div class="container search-bar">
 		<form id="form" action="#">
 			<input type="search" id="search-txt" placeholder="Enter your queries here" required tabindex="1">
-			<button style="font-size:24px" id="search-btn" onclick="my()">Search <i class="fa fa-search"></i></button>
+			<button style="font-size:24px" id="search-btn" onclick="data()">Search <i class="fa fa-search"></i></button>
 		</form>
 	</div>
 	</div>
 	<div id="text-area">
 		<p tabindex="0">
-			<strong tabindex="1" id="pp">Results will be displayed here</strong> <br><ul id="myspan"></ul>
+			<strong tabindex="1" id="pp">Results will be displayed here</strong> <br><ul id="myspan">
+				
+			</ul>
 			<p>URl-<a id="ur" href="">Click here</a></p>
 			<img src="/News-Bulletin/assets/search.png" style="height: 200px;width: 200px" id="myimg" alt="Your image will come here">
 		</p>
