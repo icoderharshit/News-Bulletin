@@ -128,6 +128,8 @@ fetch('https://covid19.mathdro.id/api/countries/India')
 				}
 				)
 
+			
+
 
 			//Third Country
 
